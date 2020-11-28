@@ -43,6 +43,10 @@ postgresql:
       password: '${PATRONI_REPLICATION_PASSWORD}'
 __EOF__
 
+mkdir /home/postgres/.config
+mkdir /home/postgres/.config/patroni
+cp /home/postgres/patroni.yml /home/postgres/.config/patroni/patronictl.yaml 
+
 unset PATRONI_SUPERUSER_PASSWORD PATRONI_REPLICATION_PASSWORD
 export KUBERNETES_NAMESPACE=$PATRONI_KUBERNETES_NAMESPACE
 export POD_NAME=$PATRONI_NAME
