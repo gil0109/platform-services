@@ -16,13 +16,15 @@ parameters:
   - name: SUFFIX
   - name: OUT_VERSION
     description: Ouput version
-    value: "v10-latest"
+    value: "v12-latest"
   - name: GIT_URI
     value: https://github.com/BCDevOps/platform-services.git
   - name: GIT_REF
     value: master
   - name: PG_VERSION
-    value: "10"
+    value: "12"
+  - name: PATRONI_VERSION
+    value: "2.0.1"
 objects:
 #Postgres ImageStream is created if it doesn't already exist
 - apiVersion: image.openshift.io/v1

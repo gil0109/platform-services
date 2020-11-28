@@ -1,9 +1,7 @@
-FROM postgres:11
+FROM postgres:$PG_VERSION
 MAINTAINER Alexander Kukushkin <alexander.kukushkin@zalando.de>
-ENV PATRONI_VERSION=1.6.5
 ENV LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 ENV PATRONI_HOME=/opt/patroni
-
 ARG PGHOME=/home/postgres
 
 RUN export DEBIAN_FRONTEND=noninteractive \
