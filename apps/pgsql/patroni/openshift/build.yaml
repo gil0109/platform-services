@@ -84,6 +84,11 @@ objects:
         from:
           kind: ImageStreamTag
           name: postgres:${PG_VERSION}
+        env:
+          - name: PG_VERSION
+            value: '12'
+          - name: PATRONI_VERSION
+            value: 2.0.1
       type: Docker
     triggers:
     - type: ConfigChange

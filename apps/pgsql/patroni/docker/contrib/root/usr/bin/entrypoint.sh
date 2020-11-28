@@ -15,6 +15,10 @@ cat > /home/postgres/patroni.yml <<__EOF__
 bootstrap:
   post_bootstrap: /usr/share/scripts/patroni/post_init.sh
   dcs:
+    ttl: 5
+    master_start_timeout: 0
+    loop_wait: 3
+    retry_timeout : 3
     postgresql:
       use_pg_rewind: true
       parameters:
