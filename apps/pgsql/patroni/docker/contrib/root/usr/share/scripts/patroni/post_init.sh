@@ -12,3 +12,4 @@ else
   echo "Skipping user creation"
   echo "Skipping database creation"
 fi
+curl -s -XPATCH -d '{"loop_wait": 5, "master_start_timeout": 0}' http://localhost:8008/config

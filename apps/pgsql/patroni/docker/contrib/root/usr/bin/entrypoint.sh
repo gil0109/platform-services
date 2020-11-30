@@ -12,8 +12,6 @@ mkdir -p "$PATRONI_POSTGRESQL_DATA_DIR"
 chmod 700 "$PATRONI_POSTGRESQL_DATA_DIR"
 
 cat > /home/postgres/patroni.yml <<__EOF__
-loop_wait: 3
-master_start_timeout: 0
 bootstrap:
   post_bootstrap: /usr/share/scripts/patroni/post_init.sh
   dcs:
@@ -42,10 +40,6 @@ postgresql:
     replication:
       password: '${PATRONI_REPLICATION_PASSWORD}'
 __EOF__
-
-mkdir /home/postgres/.config
-mkdir /home/postgres/.config/patroni
-cp /home/postgres/patroni.yml /home/postgres/.config/patroni/patronictl.yaml 
 
 unset PATRONI_SUPERUSER_PASSWORD PATRONI_REPLICATION_PASSWORD
 export KUBERNETES_NAMESPACE=$PATRONI_KUBERNETES_NAMESPACE
