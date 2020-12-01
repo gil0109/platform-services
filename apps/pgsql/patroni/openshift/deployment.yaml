@@ -214,6 +214,18 @@ objects:
               cpu: ${CPU_LIMIT}
               memory: ${MEMORY_LIMIT}
           terminationMessagePath: /dev/termination-log
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - /usr/bin/env
+                  - bash
+                  - '-c'
+                  - |
+                    # switch leader pod if the current pod is the leader
+                    if curl --fail http://localhost:8008/read-write; then
+                      patronictl switchover --force
+                    fi
           terminationMessagePolicy: File
           readinessProbe:
             initialDelaySeconds: 5
@@ -230,7 +242,7 @@ objects:
         schedulerName: default-scheduler
         securityContext: {}
         serviceAccountName: ${NAME}${SUFFIX}
-        terminationGracePeriodSeconds: 0
+        terminationGracePeriodSeconds: ${GRACE_PERIOD}
     updateStrategy:
       type: RollingUpdate
     volumeClaimTemplates:
@@ -300,3 +312,6 @@ parameters:
 - name: IMAGE_REGISTRY
   #ocp3#docker-registry.default.svc:5000
   value: image-registry.openshift-image-registry.svc:5000
+- name: GRACE_PERIOD
+  #ocp3#docker-registry.default.svc:5000
+  value: 60
